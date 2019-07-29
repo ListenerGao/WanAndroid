@@ -1,5 +1,9 @@
 <resources>
 
+
+    <!-- 使用 Tencent QMUI 中的theme -->
+    <style name="BaseAppTheme" parent="QMUI.Compat"/>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
