@@ -18,9 +18,9 @@ import com.listenergao.wanandroid.base.BaseActivity
  */
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    //    @BindView(R.id.viewPager)
+    @BindView(R.id.viewPager)
     lateinit var mViewPager: ViewPager
-    //    @BindView(R.id.bottom_navigation_view)
+    @BindView(R.id.bottom_navigation_view)
     lateinit var mBottomView: BottomNavigationView
 
     private lateinit var mMainAdapter: MainPagerAdapter
@@ -30,10 +30,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        ButterKnife.bind(this)
-
-        mViewPager = findViewById(R.id.viewPager)
-        mBottomView = findViewById(R.id.bottom_navigation_view)
+        ButterKnife.bind(this)
 
         initFragment()
     }
