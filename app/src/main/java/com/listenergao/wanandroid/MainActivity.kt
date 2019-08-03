@@ -101,8 +101,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      */
     private fun initBottomNavigationView() {
         mBottomView.setOnNavigationItemSelectedListener(this)
-
         mViewPager.adapter = mMainAdapter
+        mViewPager.offscreenPageLimit = 4
         mViewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -127,9 +127,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      * 设置当前选中的Bottom Item
      */
     private fun selectBottomNavigationViewMenuItem(@IdRes menuItemId: Int) {
-        mBottomView.setOnNavigationItemSelectedListener(null)
+//        mBottomView.setOnNavigationItemSelectedListener(null)
         mBottomView.selectedItemId = menuItemId
-        mBottomView.setOnNavigationItemSelectedListener(this)
+
     }
 
 

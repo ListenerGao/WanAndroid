@@ -6,4 +6,6 @@
 
     <color name="home_text_normal_color">#8a8a8a</color>
     <color name="home_text_selected_color">#0cc7fe</color>
+
+    <color name="black">#000000</color>
 </resources>
