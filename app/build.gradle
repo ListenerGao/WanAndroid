@@ -53,7 +53,7 @@ dependencies {
     //版本号与retrofit版本号一致
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     //版本号与retrofit版本号一致
-    implementation ('com.squareup.retrofit2:adapter-rxjava2:2.6.0'){
+    implementation('com.squareup.retrofit2:adapter-rxjava2:2.6.0') {
         exclude group: 'io.reactivex.rxjava2'
     }
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
@@ -71,4 +71,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     implementation 'com.qmuiteam:qmui:1.4.0'
+    // 基础依赖包，必须要依赖
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
+    // kotlin扩展（可选）
+    implementation 'com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta05'
 }
