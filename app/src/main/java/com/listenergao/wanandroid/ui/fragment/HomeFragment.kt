@@ -13,6 +13,7 @@ import butterknife.ButterKnife
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.listenergao.wanandroid.MainActivity
 import com.listenergao.wanandroid.R
 import com.listenergao.wanandroid.adapter.HomeArticleAdapter
 import com.listenergao.wanandroid.base.BaseFragment
@@ -47,6 +48,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
     private var mHomeArticleList = arrayListOf<HomePageArticle>()
     private val mBannerImages = arrayListOf<String>()
     private val mBannerTitles = arrayListOf<String>()
+    private var mActivity: MainActivity? = null
 
     private val observer = object : Observer<BaseResponse<List<HomeBanner>>> {
         override fun onSubscribe(d: Disposable) {
@@ -105,6 +107,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mSwipeLayout.setOnRefreshListener(this)
+        mActivity = activity as MainActivity
         Log.d("gys", "HomeFragment  onActivityCreated.....")
         init()
         qryData()
@@ -174,6 +177,34 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
             ToastUtils.showShort("收藏功能待开发")
         }
+
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                //dx是水平滚动的距离，dy是垂直滚动距离，向上滚动的时候为正，向下滚动的时候为负
+                //获取RecyclerView的布局管理器
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                ////可见范围内的第一项的位置
+                val findFirstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                ////可见范围内的最后一项的位置
+                val findLastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                //RecyclerView中的item的所有的数目
+                val itemCount = layoutManager.itemCount
+
+                Log.d(
+                    "gys",
+                    "findFirstVisibleItemPosition = $findFirstVisibleItemPosition +  findLastVisibleItemPosition = $findLastVisibleItemPosition"
+                )
+                mActivity?.setFabVisibilityState(findLastVisibleItemPosition > 20)
+            }
+        })
+
+
+    }
+
+    fun jumpToTop() {
+        Log.d("MainActivity", "...........")
+        mRecyclerView.smoothScrollToPosition(0)
     }
 
     /**

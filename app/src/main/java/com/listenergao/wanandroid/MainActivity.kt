@@ -1,8 +1,11 @@
 package com.listenergao.wanandroid
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -12,9 +15,11 @@ import androidx.viewpager.widget.ViewPager
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.listenergao.wanandroid.adapter.MainPagerAdapter
 import com.listenergao.wanandroid.base.BaseActivity
+import com.listenergao.wanandroid.ui.fragment.HomeFragment
 
 /**
  * create on 19/07/29
@@ -24,7 +29,8 @@ import com.listenergao.wanandroid.base.BaseActivity
  */
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
-    BottomNavigationView.OnNavigationItemSelectedListener {
+    BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
 
     @BindView(R.id.toolbar)
     lateinit var mToolbar: Toolbar
@@ -36,8 +42,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     lateinit var mViewPager: ViewPager
     @BindView(R.id.bottom_navigation_view)
     lateinit var mBottomView: BottomNavigationView
+    @BindView(R.id.fab)
+    lateinit var mFab: FloatingActionButton
 
     private lateinit var mMainAdapter: MainPagerAdapter
+    private var mCurrentScreen: MainScreen? = null
+    var fabIsNeedShow = false
+    var isNeedShow = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +81,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 //        modeSwitchItem.setIcon(R.drawable.icon_daytime_mode)
 //        modeSwitchItem.setTitle(R.string.menu_daytime_mode)
 
+        mFab.setOnClickListener(this)
+
         initFragment()
 
     }
@@ -96,6 +109,27 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     }
 
+
+    fun setFabVisibilityState(isNeedShow: Boolean) {
+        Log.d("MainActivity", "isNeedShow = $isNeedShow +   fabIsNeedShow = $fabIsNeedShow")
+        this.isNeedShow = isNeedShow
+
+        setFabVisibility()
+    }
+
+    /**
+     * 设置Fab显示的状态
+     */
+    @SuppressLint("RestrictedApi")
+    fun setFabVisibility() {
+        if (isNeedShow && fabIsNeedShow) {
+            mFab.visibility = View.VISIBLE
+        } else {
+            mFab.visibility = View.GONE
+        }
+    }
+
+
     /**
      * 初始化BottomNavigationView，并与ViewPager关联
      */
@@ -116,11 +150,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     /**
      * 滑动到当前选择的页面
      */
+    @SuppressLint("RestrictedApi")
     private fun scrollToScreen(mainScreen: MainScreen) {
         val screenPosition = mMainAdapter.getItems().indexOf(mainScreen)
+        fabIsNeedShow = screenPosition == 0
         if (screenPosition != mViewPager.currentItem) {
             mViewPager.currentItem = screenPosition
         }
+
+        setFabVisibility()
     }
 
     /**
@@ -151,7 +189,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // 处理主页面 首页，知识体系，导航，项目四个Item点击事件
-        getMainScreenForMenuItem(item.itemId)?.let {
+        mCurrentScreen = getMainScreenForMenuItem(item.itemId)?.let {
             scrollToScreen(it)
             supportActionBar?.setTitle(it.titleStringId)
             return true
@@ -184,6 +222,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onClick(view: View) {
+        val homeFragment = MainScreen.HOME.fragment as HomeFragment
+        homeFragment.jumpToTop()
     }
 
     override fun onBackPressed() {
