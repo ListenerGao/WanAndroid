@@ -1,5 +1,6 @@
 package com.listenergao.wanandroid.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import com.listenergao.wanandroid.http.response.HomeBanner
 import com.listenergao.wanandroid.http.response.HomePageArticle
 import com.listenergao.wanandroid.http.test.HttpUtils
 import com.listenergao.wanandroid.image.GlideImageLoader
+import com.listenergao.wanandroid.ui.activity.HomeArticleWebActivity
 import com.youth.banner.Banner
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -172,6 +174,12 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
             ToastUtils.showShort("点击position = $position")
+            val data = adapter.data as MutableList<HomePageArticle>
+            val homePageArticle = data.get(position)
+            val intent = Intent(mActivity, HomeArticleWebActivity::class.java)
+            intent.putExtra(HomeArticleWebActivity.HOME_ARTICLE_TITLE, homePageArticle.title)
+            intent.putExtra(HomeArticleWebActivity.HOME_ARTICLE_URL, homePageArticle.link)
+            startActivity(intent)
         }
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->

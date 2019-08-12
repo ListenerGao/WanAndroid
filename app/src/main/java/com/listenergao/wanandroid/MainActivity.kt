@@ -53,11 +53,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
 
         initView()
 
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
     }
 
     private fun initView() {
