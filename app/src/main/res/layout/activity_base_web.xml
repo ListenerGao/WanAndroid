@@ -16,11 +16,15 @@
             android:theme="@style/AppTheme.AppBarOverlay"
             tools:ignore="MissingConstraints">
 
+        <!--
+        contentInsetStartWithNavigation 设置返回按钮与文本之间的间距
+        -->
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
+                app:contentInsetStartWithNavigation="0dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </com.google.android.material.appbar.AppBarLayout>

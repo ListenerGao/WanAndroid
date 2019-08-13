@@ -32,6 +32,10 @@ class HomeArticleWebActivity : BaseWebActivity() {
         setWebViewTitle(title)
         initWebView(homeArticleUrl)
 
+        mToolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     private val mWebViewClient = object : WebViewClient() {
@@ -57,6 +61,14 @@ class HomeArticleWebActivity : BaseWebActivity() {
             if (title != null) {
 //                setWebViewTitle(title)
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (mWebView.canGoBack()) {
+            mWebView.goBack()
+        } else {
+            super.onBackPressed()
         }
     }
 

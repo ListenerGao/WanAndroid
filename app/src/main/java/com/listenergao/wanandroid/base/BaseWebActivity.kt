@@ -37,6 +37,8 @@ abstract class BaseWebActivity : BaseActivity() {
 
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+//        supportActionBar?.setIcon(R.drawable.icon_close)
 
     }
 
