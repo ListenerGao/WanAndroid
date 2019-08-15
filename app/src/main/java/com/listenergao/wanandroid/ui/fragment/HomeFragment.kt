@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.listenergao.wanandroid.MainActivity
@@ -26,6 +27,7 @@ import com.listenergao.wanandroid.http.test.HttpUtils
 import com.listenergao.wanandroid.image.GlideImageLoader
 import com.listenergao.wanandroid.ui.activity.HomeArticleWebActivity
 import com.youth.banner.Banner
+import com.youth.banner.listener.OnBannerListener
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -34,7 +36,8 @@ import io.reactivex.disposables.Disposable
  * 首页
  * @author ListenerGao
  */
-class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
+class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,
+    OnBannerListener {
 
 
     @BindView(R.id.swipe_layout)
@@ -51,6 +54,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
     private val mBannerImages = arrayListOf<String>()
     private val mBannerTitles = arrayListOf<String>()
     private var mActivity: MainActivity? = null
+    private var mBanners: List<HomeBanner>? = null
 
     private val observer = object : Observer<BaseResponse<List<HomeBanner>>> {
         override fun onSubscribe(d: Disposable) {
@@ -145,6 +149,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
 
 
     private fun initOrUpdateBanner(bannerList: List<HomeBanner>?) {
+        mBanners = bannerList
         mBannerImages.clear()
         mBannerTitles.clear()
         bannerList?.forEach {
@@ -159,7 +164,15 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
             .isAutoPlay(true)
             //设置轮播时间
             .setDelayTime(3000)
+            .setOnBannerListener(this)
             .start()
+    }
+
+    override fun OnBannerClick(position: Int) {
+        val banner = mBanners?.get(position)
+        if (banner != null) {
+            startToHomeArticlePage(banner.title, banner.url)
+        }
     }
 
     private fun initRecyclerView() {
@@ -175,11 +188,8 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
         mAdapter.setOnItemClickListener { adapter, view, position ->
             ToastUtils.showShort("点击position = $position")
             val data = adapter.data as MutableList<HomePageArticle>
-            val homePageArticle = data.get(position)
-            val intent = Intent(mActivity, HomeArticleWebActivity::class.java)
-            intent.putExtra(HomeArticleWebActivity.HOME_ARTICLE_TITLE, homePageArticle.title)
-            intent.putExtra(HomeArticleWebActivity.HOME_ARTICLE_URL, homePageArticle.link)
-            startActivity(intent)
+            val homePageArticle = data[position]
+            startToHomeArticlePage(homePageArticle.title, homePageArticle.link)
         }
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
@@ -208,6 +218,16 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
         })
 
 
+    }
+
+    private fun startToHomeArticlePage(title: String?, url: String?) {
+        if (StringUtils.isEmpty(title) || StringUtils.isEmpty(url)) {
+            return
+        }
+        val intent = Intent(mActivity, HomeArticleWebActivity::class.java)
+        intent.putExtra(HomeArticleWebActivity.HOME_ARTICLE_TITLE, title)
+        intent.putExtra(HomeArticleWebActivity.HOME_ARTICLE_URL, url)
+        startActivity(intent)
     }
 
     fun jumpToTop() {
