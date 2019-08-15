@@ -25,7 +25,7 @@ interface Apis {
      * https://www.wanandroid.com/article/list/0/json
      */
     @GET("article/list/{pagNum}/json")
-    fun getHomePageArticle(@Path("pagNum") pagNum: String): Observable<BaseResponse<BaseDataMode<ArrayList<HomePageArticle>>>>
+    fun getHomePageArticle(@Path("pagNum") pagNum: String): Observable<BaseResponse<BaseDataMode<List<HomePageArticle>>>>
 
     /**
      * 首页banner

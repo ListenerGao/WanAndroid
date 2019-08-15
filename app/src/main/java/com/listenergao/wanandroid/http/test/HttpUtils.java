@@ -137,9 +137,9 @@ public class HttpUtils {
      * @param currentPage
      * @param observer
      */
-    public void getHomeArticle(String currentPage, Observer<BaseResponse<BaseDataMode<ArrayList<HomePageArticle>>>> observer) {
+    public void getHomeArticle(String currentPage, Observer<BaseResponse<BaseDataMode<List<HomePageArticle>>>> observer) {
         Apis apis = getRxJavaRetrofit().create(Apis.class);
-        Observable<BaseResponse<BaseDataMode<ArrayList<HomePageArticle>>>> homePageArticle = apis.getHomePageArticle(currentPage);
+        Observable<BaseResponse<BaseDataMode<List<HomePageArticle>>>> homePageArticle = apis.getHomePageArticle(currentPage);
         homePageArticle.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

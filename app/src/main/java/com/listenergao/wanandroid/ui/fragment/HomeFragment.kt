@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
 
     private var currentPage = "0"
     private lateinit var mAdapter: HomeArticleAdapter
-    private var mHomeArticleList = arrayListOf<HomePageArticle>()
+    private var mHomeArticleList = mutableListOf<HomePageArticle>()
     private val mBannerImages = arrayListOf<String>()
     private val mBannerTitles = arrayListOf<String>()
     private var mActivity: MainActivity? = null
@@ -78,7 +78,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
         }
     }
 
-    private val homeArticleObserver = object : Observer<BaseResponse<BaseDataMode<ArrayList<HomePageArticle>>>> {
+    private val homeArticleObserver = object : Observer<BaseResponse<BaseDataMode<List<HomePageArticle>>>> {
         override fun onSubscribe(d: Disposable) {
         }
 
@@ -87,7 +87,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
             mAdapter.setEnableLoadMore(true)
         }
 
-        override fun onNext(response: BaseResponse<BaseDataMode<ArrayList<HomePageArticle>>>) {
+        override fun onNext(response: BaseResponse<BaseDataMode<List<HomePageArticle>>>) {
             mSwipeLayout.isRefreshing = false
             mAdapter.setEnableLoadMore(true)
             setRecyclerViewData(response)
@@ -232,7 +232,7 @@ class HomeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, BaseQ
      * 处理列表数据
      * 包含列表的刷新以及上拉加载数据
      */
-    private fun setRecyclerViewData(response: BaseResponse<BaseDataMode<ArrayList<HomePageArticle>>>) {
+    private fun setRecyclerViewData(response: BaseResponse<BaseDataMode<List<HomePageArticle>>>) {
         val baseData = response.data
         if (response.isSuccess() && baseData != null) {
             currentPage = baseData.curPage.toString()

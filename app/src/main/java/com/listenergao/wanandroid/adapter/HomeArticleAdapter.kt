@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.listenergao.wanandroid.R
 import com.listenergao.wanandroid.http.response.HomePageArticle
 
-class HomeArticleAdapter(data: MutableList<HomePageArticle>) :
+class HomeArticleAdapter(data: List<HomePageArticle>) :
     BaseQuickAdapter<HomePageArticle, BaseViewHolder>(R.layout.item_home_article, data) {
 
 
