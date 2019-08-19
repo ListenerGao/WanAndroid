@@ -1,9 +1,6 @@
 package com.listenergao.wanandroid.http.api
 
-import com.listenergao.wanandroid.http.response.BaseDataMode
-import com.listenergao.wanandroid.http.response.BaseResponse
-import com.listenergao.wanandroid.http.response.HomeBanner
-import com.listenergao.wanandroid.http.response.HomePageArticle
+import com.listenergao.wanandroid.http.response.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -34,5 +31,14 @@ interface Apis {
      */
     @GET("banner/json")
     fun getHomeBanner(): Observable<BaseResponse<List<HomeBanner>>>
+
+
+    /**
+     * 知识体系
+     *
+     * https://www.wanandroid.com/tree/json
+     */
+    @GET("tree/json")
+    fun getKnowledgeInfo(): Observable<BaseResponse<List<Knowledge>>>
 
 }

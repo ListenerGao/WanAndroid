@@ -2,10 +2,7 @@ package com.listenergao.wanandroid.http.test;
 
 import android.util.Log;
 import com.listenergao.wanandroid.http.api.Apis;
-import com.listenergao.wanandroid.http.response.BaseDataMode;
-import com.listenergao.wanandroid.http.response.BaseResponse;
-import com.listenergao.wanandroid.http.response.HomeBanner;
-import com.listenergao.wanandroid.http.response.HomePageArticle;
+import com.listenergao.wanandroid.http.response.*;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
@@ -141,6 +138,18 @@ public class HttpUtils {
         Apis apis = getRxJavaRetrofit().create(Apis.class);
         Observable<BaseResponse<BaseDataMode<List<HomePageArticle>>>> homePageArticle = apis.getHomePageArticle(currentPage);
         homePageArticle.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 获取 知识体系 数据
+     * @param observer
+     */
+    public void getKnowledge(Observer<BaseResponse<List<Knowledge>>> observer) {
+        Apis apis = getRxJavaRetrofit().create(Apis.class);
+        Observable<BaseResponse<List<Knowledge>>> knowledgeInfo = apis.getKnowledgeInfo();
+        knowledgeInfo.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
