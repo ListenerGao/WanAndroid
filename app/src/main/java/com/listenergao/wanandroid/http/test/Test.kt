@@ -51,7 +51,7 @@ suspend fun doSomeThing() {
         Thread.sleep(2000L)
         println("world")
     }
-}vw
+}
 
 fun test() = runBlocking {
     val job = GlobalScope.launch {
