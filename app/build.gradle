@@ -46,24 +46,24 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.blankj:utilcodex:1.25.3'
-    implementation "io.reactivex.rxjava3:rxjava:3.0.0-RC1"
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0-RC1'
     implementation('io.reactivex.rxjava2:rxandroid:2.1.1') {
         exclude group: 'io.reactivex.rxjava2'
     }
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     //版本号与retrofit版本号一致
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     //版本号与retrofit版本号一致
-    implementation('com.squareup.retrofit2:adapter-rxjava2:2.6.0') {
+    implementation('com.squareup.retrofit2:adapter-rxjava2:2.6.1') {
         exclude group: 'io.reactivex.rxjava2'
     }
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
 
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    kapt 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
     //支持AndroidX版本
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45'
 
