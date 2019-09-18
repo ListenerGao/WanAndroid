@@ -41,41 +41,39 @@ dependencies {
 
     implementation Config.depConfig.androidx.values()
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation Config.depConfig.junit
+    androidTestImplementation Config.depConfig.runner
+    androidTestImplementation Config.depConfig.espresso_core
 
-    implementation 'com.blankj:utilcodex:1.25.3'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0-RC1'
-    implementation('io.reactivex.rxjava2:rxandroid:2.1.1') {
+    implementation Config.depConfig.rxjava3
+    implementation(Config.depConfig.rxandroid2) {
         exclude group: 'io.reactivex.rxjava2'
     }
-    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
-    //版本号与retrofit版本号一致
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
-    //版本号与retrofit版本号一致
-    implementation('com.squareup.retrofit2:adapter-rxjava2:2.6.1') {
+    implementation Config.depConfig.retrofit2
+    implementation Config.depConfig.converter_gson
+    implementation(Config.depConfig.adapter_rxjava2) {
         exclude group: 'io.reactivex.rxjava2'
     }
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.0'
 
-    implementation 'com.jakewharton:butterknife:10.2.0'
-    kapt 'com.jakewharton:butterknife-compiler:10.2.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation Config.depConfig.logging_interceptor
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
+    implementation Config.depConfig.butterknife
+    kapt Config.depConfig.butterknife_compiler
+    implementation Config.depConfig.gson
+
+    debugImplementation Config.depConfig.leakcanary
     //支持AndroidX版本
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45'
+    implementation Config.depConfig.BaseRecyclerViewAdapterHelper
 
-    implementation 'com.youth.banner:banner:1.4.10'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation Config.depConfig.banner
+    implementation Config.depConfig.glide
+    kapt Config.depConfig.glide_compiler
 
-    implementation 'com.qmuiteam:qmui:1.4.0'
+    implementation Config.depConfig.qmui
     // 基础依赖包，必须要依赖
-    implementation 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
+    implementation Config.depConfig.immersionbar
     // kotlin扩展（可选）
-    implementation 'com.gyf.immersionbar:immersionbar-ktx:3.0.0-beta05'
+    implementation Config.depConfig.immersionbar_ktx
 
-    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation Config.depConfig.statusbarutil
 }
