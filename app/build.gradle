@@ -45,6 +45,8 @@ dependencies {
     androidTestImplementation Config.depConfig.runner
     androidTestImplementation Config.depConfig.espresso_core
 
+    implementation Config.depConfig.utilcodex
+
     implementation Config.depConfig.rxjava3
     implementation(Config.depConfig.rxandroid2) {
         exclude group: 'io.reactivex.rxjava2'
